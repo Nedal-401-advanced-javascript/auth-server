@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv').config();
 const users = require('../model/users');
 const superagent = require('superagent');
 
@@ -13,10 +14,15 @@ module.exports = async (req, res, next)=> {
     let code = req.query.code;
     console.log("code : ",code);//'5846fd17b203044a32d2'
 
+
+// Exchange the code received on the initial request for a token from the Provider
     let token = await exchangeCodeWithToken(code);
     console.log(" token ---> ",token)
+
+// Use the token to retrieve the user’s account information from the Provider
     let user = await exchangeTokenWithUser(token);
-    
+
+// Create/Retrieve an account from our Mongo users database matching the user’s account (email or username) using the users model
     let [savedUser, serverToken] = await saveUser(user);
 
     req.user = savedUser; 
@@ -25,12 +31,13 @@ module.exports = async (req, res, next)=> {
 
 };
 
-const CLIENT_ID = '2637fcea3e8883245715';
-const CLINET_SECRET = '586cae131b97ba02f8ece3c605195122ce77a417'
+const CLIENT_ID =process.env.CLIENT_id;//shuld be in the .env
+const CLINET_SECRET = process.env.CLINET_secret;
 
 async function exchangeCodeWithToken(code) {
     const urlToGetToken = 'https://github.com/login/oauth/access_token';
-    const response = await superagent.post(urlToGetToken).send({
+    const response = await superagent.post(urlToGetToken)
+    .send({
         client_id: CLIENT_ID,
         client_secret: CLINET_SECRET,
         code: code,
