@@ -24,5 +24,8 @@ const userAccount = mongoose.Schema({
     }
 });
 // sudo service mongod start
+userAccount.method.autho()=>{
+    
+}
 
 module.exports = mongoose.model('userAccount', userAccount);
