@@ -8,6 +8,9 @@ An Express/Node.js based server using a custom “authentication” module that 
 2. Bearer Auth.
 3. OAuth.
 
+our auth-server is able to handle Basic Authentication (user provides a username + password) and OAuth (user authenticates through a 3rd party). When a “good” login happens, the user is considered to be “authenticated” and our auth-server generates a JWT signed “Token” which is returned to the application.
+using that Token to re-authenticate users to shield access to any route that requires a valid login to access.
+
 ### .env requirements:
 - PORT
 - MONGOOSE_url
