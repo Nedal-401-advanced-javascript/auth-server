@@ -4,10 +4,10 @@
   "description": "An Express/Node.js based server using a custom “authentication” module that is designed to handle user registration and sign in using Basic, Bearer, or OAuth along with a custom “authorization” module that will grant/deny users access to the server based on their role or permissions level.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint '**/*.js'"
   },
   "repository": {
-    "lint": "eslint '**/*.js'",
     "type": "git",
     "url": "git+https://github.com/Nedal-401-advanced-javascript/auth-server.git"
   },

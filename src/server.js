@@ -5,11 +5,13 @@ const cors = require('cors');
 const express = require('express');
 const app = express();
 const router=require('./auth/router')
+const extraRouter=require('./extra-routes')
 
 
 app.use(express.json());
 app.use(cors());
 app.use(router)
+app.use(extraRouter)
 
 /**
  * @module server
