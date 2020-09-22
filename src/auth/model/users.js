@@ -7,7 +7,7 @@ const SECRET = 'mytokensecret';
 let users = {};
 
 /**
- * Hash the plain text password given before save a user to the database
+ * Hash the plain text password given, before save a user to the database
  * @param {*} record Data with the keys “username” and “password”
  * @returns record
  */

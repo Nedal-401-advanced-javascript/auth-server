@@ -3,7 +3,8 @@
 'use strict';
 const express = require('express');
 const users = require('./model/users')
-const basicAuth = require('./middleware/oauth')
+const basicAuth = require('./middleware/basic')
+const ouath = require('./middleware/oauth')
 const app = express();
 
 app.use(express.json());
@@ -17,16 +18,19 @@ app.post('/signup', (req, res) => {
     }).catch(err => res.status(403).send("This user name not availble, Error!!!!!!!!!!"));
 })
 
-app.post('/signin', basicAuth, (req, res)=> {
+app.post('/signin', basicAuth, (req, res) => {
     res.status(200).send(req.token);
- });
-
- app.get('/users', basicAuth,(req, res)=> {
-    // list all users 
-users.list().then(data=>{
-
-    res.status(200).send(data);
-})
 });
 
-module.exports=app;
+app.get('/users', basicAuth, (req, res) => {
+    // list all users 
+    users.list().then(data => {
+
+        res.status(200).send(data);
+    })
+});
+app.get('/oauth', ouath, (req, res)=> {
+    res.status(200).send(req.token);
+});
+
+module.exports = app;
