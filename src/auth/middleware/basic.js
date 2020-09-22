@@ -12,12 +12,12 @@ module.exports = (req, res, next) => {
     
     if(auth[0] == 'Basic') {
         const [username, password] = base64.decode(auth[1]).split(':'); 
-        console.log('here ---->');
+        console.log('here ---->',{username, password});
         users.authenticateBasic(username, password).then(validUser=>{
-        
+        console.log('<-----Basic user: before generate token------>',validUser);
             let token = users.generateToken(validUser);
             req.token = token;
-            
+            console.log(token,'<---------Basic Token');
             next();
             
         }).catch(err=> next(err));

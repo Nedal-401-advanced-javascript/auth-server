@@ -6,6 +6,7 @@ const users = require('./model/users')
 const basicAuth = require('./middleware/basic')
 const ouath = require('./middleware/oauth')
 const app = express();
+const bearerMiddleware=require('./middleware/bearer')
 
 app.use(express.json());
 
@@ -13,6 +14,7 @@ app.use(express.json());
 // Create a POST route for /signup
 app.post('/signup', (req, res) => {
     users.save(req.body).then(userRecord => {
+        console.log('----singup before generate token',userRecord);
         let token = users.generateToken(userRecord);
         res.status(200).send(token);
     }).catch(err => res.status(403).send("This user name not availble, Error!!!!!!!!!!"));
