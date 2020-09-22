@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
+    "lint": "eslint '**/*.js'",
     "type": "git",
     "url": "git+https://github.com/Nedal-401-advanced-javascript/auth-server.git"
   },
@@ -22,13 +23,11 @@
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "eslint": "^7.9.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.6",
     "superagent": "^6.1.0"
   },
-  "devDependencies": {
-    "eslint": "^7.9.0",
-    "eslint-config-google": "^0.14.0"
-  }
+  "devDependencies": {}
 }
