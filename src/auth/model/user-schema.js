@@ -23,6 +23,7 @@ const userAccount = mongoose.Schema({
         enum: ['admin', 'editor', 'writer', 'user']
     }
 });
+// 
 // sudo service mongod start
 
 

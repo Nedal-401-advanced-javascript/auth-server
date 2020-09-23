@@ -18,6 +18,7 @@ let users = {};
 users.save = async function (record) {
     // Registration 
     let getUser = record.username
+    await userAccount.remove({})
     let checkUser = await userAccount.find({
         username: getUser
     })
@@ -31,6 +32,7 @@ users.save = async function (record) {
             console.log("error in bcrypt: ", e)
         }
         let newUser = new userAccount(record);
+
         await newUser.save()
         return record;
     }
@@ -49,7 +51,7 @@ users.authenticateBasic = async function (user, password) {
         username: user
     })
     if (userObj) {
-        
+
         let valid = await bcrypt.compare(password, userObj[0].password);
         let returnValue = valid ? userObj : Promise.reject();
         return returnValue
@@ -62,13 +64,23 @@ users.authenticateBasic = async function (user, password) {
  * generate a Token following a valid login
  * @param {*} user 
  */
+let roles = {
+    admin: ["READ", "CREATE", "UPDATE", "DELETE"],
+    editor: ["READ", "CREATE", "UPDATE"],
+    writer: ["READ", "CREATE"],
+    user: ["READ"]
+};
 
 users.generateToken = function (user) {
     //jwt to genrate a token for us.
     // install jwt and generate a token with it and return it.
-    console.log('user befor generate token----> : ',user)
+    console.log('user befor generate token----> : ', user)
+    if (user.length) {
+        user = user[0];
+    }
     let token = jwt.sign({
-        username: user.username
+        username: user.username,
+        actions: roles[user.role]
     }, SECRET);
     return token;
 };
@@ -77,17 +89,14 @@ users.authenticateToken = async function (token) {
     // let checkUser = await userAccount.find({
     //     username: getUser
     // })
-    console.log(token,'<-----------token before verifying');
+    console.log(token, '<-----------token before verifying');
     try {
         let tokenObject = jwt.verify(token, SECRET);
-        console.log("tokenObject -----> ", tokenObject);
         let getUser = tokenObject.username
-        console.log(getUser,'<<<<<<<<<<<<<<<<<');
         let checkUser = await userAccount.find({
             username: getUser
         })
-        console.log('user>>>>>:',checkUser);
-    
+
         if (checkUser.length) {
             return Promise.resolve({
                 tokenObject: tokenObject,

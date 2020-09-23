@@ -8,16 +8,20 @@ module.exports = (req, res, next) => {
     // Basic Authentication (HTTP Headers)
     // we expect to have req headers 
     // Basic YWhtYWRfc2hlbGEgOjEyMzQ=
+    if (!req.headers.authorization) {
+        return next('Invalid Login, No Headers !!');
+    }
     const auth = req.headers.authorization.split(' ');
     
     if(auth[0] == 'Basic') {
         const [username, password] = base64.decode(auth[1]).split(':'); 
-        console.log('here ---->',{username, password});
+        console.log('(1))>>>>>>>>>>>>>>>>>', username, ' <><>',password);
+
         users.authenticateBasic(username, password).then(validUser=>{
-        console.log('<-----Basic user: before generate token------>',validUser);
+            console.log('(2)>>>>>>>>>>>>>>>>>', validUser );
             let token = users.generateToken(validUser);
+            console.log(token);
             req.token = token;
-            console.log(token,'<---------Basic Token');
             next();
             
         }).catch(err=> next(err));

@@ -21,6 +21,7 @@ app.post('/signup', (req, res) => {
 })
 
 app.post('/signin', basicAuth, (req, res) => {
+    console.log('respons>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     res.status(200).send(req.token);
 });
 
