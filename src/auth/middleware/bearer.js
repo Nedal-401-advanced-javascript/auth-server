@@ -1,6 +1,6 @@
 'use strict';
 
-const users = require('../model/users');
+const users = require('../model/user-schema');
 // what is this middleware used for?
 // check on the token, does it exist?
 // if yes then parse it and get user and validate him
@@ -35,4 +35,3 @@ module.exports = (req, res, next) => {
 
 };
 
-// ======

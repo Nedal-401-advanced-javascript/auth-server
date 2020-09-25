@@ -1,6 +1,6 @@
 'use strict';
 require('dotenv').config();
-const users = require('../model/users');
+const users = require('../model/user-schema');
 const superagent = require('superagent');
 
 

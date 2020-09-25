@@ -1,6 +1,5 @@
 'use strict';
 const express = require('express');
-const users = require('./auth/model/users')
 const bearerAuth = require('./auth/middleware/bearer')
 const permissions = require('./auth/middleware/authorize')
 const router = express();

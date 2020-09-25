@@ -1,7 +1,7 @@
 'use strict';
 
 const base64 = require('base-64');
-const users = require('../model/users');
+const users = require('../model/user-schema');
 
 module.exports = (req, res, next) => {
     // pass the username and password to this method;
@@ -15,10 +15,7 @@ module.exports = (req, res, next) => {
     
     if(auth[0] == 'Basic') {
         const [username, password] = base64.decode(auth[1]).split(':'); 
-        console.log('(1))>>>>>>>>>>>>>>>>>', username, ' <><>',password);
-
         users.authenticateBasic(username, password).then(validUser=>{
-            console.log('(2)>>>>>>>>>>>>>>>>>', validUser );
             let token = users.generateToken(validUser);
             console.log(token);
             req.token = token;
