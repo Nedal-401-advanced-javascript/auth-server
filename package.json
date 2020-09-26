@@ -4,7 +4,7 @@
   "description": "An Express/Node.js based server using a custom “authentication” module that is designed to handle user registration and sign in using Basic, Bearer, or OAuth along with a custom “authorization” module that will grant/deny users access to the server based on their role or permissions level.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose --coverage",
     "lint": "eslint '**/*.js'"
   },
   "repository": {
@@ -19,12 +19,14 @@
   },
   "homepage": "https://github.com/Nedal-401-advanced-javascript/auth-server#readme",
   "dependencies": {
+    "@code-fellows/supergoose": "^1.0.11",
     "base-64": "^0.1.0",
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "eslint": "^7.9.0",
     "express": "^4.17.1",
+    "jest": "^26.4.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.6",
     "superagent": "^6.1.0"
