@@ -18,17 +18,17 @@ app.post('/signup', (req, res) => {
             username: newUser.username
         })
         .then(result => {
-            if (!result.length) {
+            if (!result) {
                 let user = new users(newUser)
                 user.save()
                     .then(user => {
                         let token = users.generateToken(user);
-                        res.status(201).send(token);
+                        res.status(200).send(token);
                     }).catch(err => res.status(403).send("This user name not availble, Error!!!!!!!!!!"));
 
-            }
-        })
-})
+            };
+        });
+});
 
 app.post('/signin', basicAuth, (req, res) => {
     res.status(200).send(req.token);
@@ -38,6 +38,7 @@ app.get('/users', basicAuth, (req, res) => {
     // list all users 
     users.find({})
         .then(data => {
+            console.log('reached the all data');
             res.status(200).send(data);
         })
 });
